@@ -2,7 +2,6 @@ package bek.dev.appsalessystem.serviceImpl;
 
 import bek.dev.appsalessystem.entity.*;
 import bek.dev.appsalessystem.entity.enums.Status;
-import bek.dev.appsalessystem.payload.NumberOfProductsInYear;
 import bek.dev.appsalessystem.payload.OrderDetailsDto;
 import bek.dev.appsalessystem.payload.Result;
 import bek.dev.appsalessystem.repository.*;
@@ -13,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,9 +31,7 @@ public class OrderServiceImpl implements OrderService {
     // GET TOTAL NUMBER OF ORDERS PLACED IN 2016 BY CUSTOMERS OF EACH COUNTRY
     @Override
     public HttpEntity<?> getNumberOfProductsInYear() {
-        List<NumberOfProductsInYear> numberOfProductsInYear = orderRepository.getNumberOfProductsInYear();
-        numberOfProductsInYear.removeIf(productsInYear -> productsInYear.getCount() < 1);
-        return ResponseEntity.ok(numberOfProductsInYear);
+        return ResponseEntity.ok(orderRepository.getNumberOfProductsInYear());
     }
 
 
@@ -63,10 +59,10 @@ public class OrderServiceImpl implements OrderService {
     //MAKE ORDER AND CREATE INVOICE WHILE CREATING NEW ORDER
     @Override
     public Result makeOrder(OrderDetailsDto orderDetailsDto) {
-        Optional<Customer> optionalCustomer = customerRepository.findById(orderDetailsDto.getCustomer_id());
+        Optional<Customer> optionalCustomer = customerRepository.findById(orderDetailsDto.getCustomerId());
         if (!optionalCustomer.isPresent())
             return new Result(Status.FAILED, 0);
-        Optional<Product> optionalProduct = productRepository.findById(orderDetailsDto.getProduct_id());
+        Optional<Product> optionalProduct = productRepository.findById(orderDetailsDto.getProductId());
         if (!optionalProduct.isPresent())
             return new Result(Status.FAILED, 0);
         Order order=new Order();

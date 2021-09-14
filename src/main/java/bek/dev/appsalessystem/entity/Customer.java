@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Data
 @Entity
+@Check(constraints = "length(country)=3")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +22,7 @@ public class Customer {
     @Column(nullable = false,length = 14)
     private String name;
 
-    @Size(min = 3,max = 3)
-    @Column(nullable = false, length = 3)
+    @Column(nullable = false)
     private String country;
 
     private String address;

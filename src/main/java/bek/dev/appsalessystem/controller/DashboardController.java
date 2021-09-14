@@ -77,7 +77,7 @@ public class DashboardController {
 
     /**
      * Invoices that have been overpaid
-     * @return invoiceId, overpayment
+     * @return invoiceId, overpayment----
      */
     @GetMapping("/overpaid_invoices")
     public HttpEntity<?> getOverpaidInvoices(){
@@ -88,7 +88,7 @@ public class DashboardController {
 
     /**
      * Products that were ordered more than 10 times in total
-     * @return productId, countOfTimes
+     * @return productId, countOfTimes-----
      */
     @GetMapping("/high_demand_products")
     public HttpEntity<?> getHighDemandProducts(){
@@ -110,7 +110,7 @@ public class DashboardController {
 
     /**
      * Total number of orders placed in 2016 by customers of each country
-     * @return countOf
+     * @return countOf-----
      */
     @GetMapping("/number_of_products_in_year")
     public HttpEntity<?> getNumberOfProductsInYear(){
@@ -119,8 +119,9 @@ public class DashboardController {
 
 
     /**
-     *
-     * @return
+     * For each order without invoice, list its ID, the date it was placed and the total price of the
+     * products in its detail
+     * @return orderId, orderDate, TotalPrice
      */
     @GetMapping("/orders_without_invoices")
     public HttpEntity<?> getOrdersWithoutInvoices(){
