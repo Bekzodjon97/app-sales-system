@@ -1,10 +1,13 @@
 package bek.dev.appsalessystem.service;
 
+import bek.dev.appsalessystem.entity.Invoice;
 import org.springframework.http.HttpEntity;
+
+import java.util.List;
 
 
 public interface InvoiceService {
-    HttpEntity<?> getExpiredInvoices();
+    HttpEntity<List<Invoice>> getExpiredInvoices();
 
     HttpEntity<?> getWrongDateInvoices();
 

@@ -16,6 +16,7 @@ public class Result {
     private Status message;
     private Object object;
     private Integer number;
+    private boolean success;
 
     public Result(Status message, Object object) {
         this.message = message;
@@ -25,5 +26,10 @@ public class Result {
     public Result(Status message, Integer number) {
         this.message = message;
         this.number = number;
+    }
+
+    public Result(Status message, boolean success) {
+        this.message = message;
+        this.success = success;
     }
 }

@@ -16,7 +16,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 
     //get products that are usually ordered in bulk
-    @Query(value = "select co.product_id as productId, p.price from orders_count co join product p on p.id=co.product_id and co.count>7", nativeQuery = true)
+    @Query(value = "select distinct d.product_id as productId, p.price from detail d join product p on p.id=d.product_id where p.id not in (select distinct product_id from detail where quantity<8)", nativeQuery = true)
     List<BulkProducts> getBulkProducts();
 
 

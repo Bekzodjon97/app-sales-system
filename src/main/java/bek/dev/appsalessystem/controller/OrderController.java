@@ -1,5 +1,6 @@
 package bek.dev.appsalessystem.controller;
 
+import bek.dev.appsalessystem.entity.Order;
 import bek.dev.appsalessystem.entity.enums.Status;
 import bek.dev.appsalessystem.payload.OrderDetailsDto;
 import bek.dev.appsalessystem.payload.Result;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -17,14 +20,14 @@ public class OrderController {
 
 
     @PostMapping
-    public HttpEntity<?> makeOrder(@RequestBody OrderDetailsDto orderDetailsDto){
+    public HttpEntity<Result> makeOrder(@Valid @RequestBody OrderDetailsDto orderDetailsDto){
         Result result=orderService.makeOrder(orderDetailsDto);
         return ResponseEntity.status(result.getMessage().equals(Status.SUCCESS)?200:409).body(result);
     }
 
 
     @GetMapping("/details/{order_id}")
-    public HttpEntity<?> getOrderById(@PathVariable Integer order_id){
+    public HttpEntity<Order> getOrderById(@PathVariable Integer order_id){
         return orderService.getOrderById(order_id);
     }
 }

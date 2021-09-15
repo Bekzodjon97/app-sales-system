@@ -1,10 +1,13 @@
 package bek.dev.appsalessystem.service;
 
+import bek.dev.appsalessystem.entity.Category;
 import org.springframework.http.HttpEntity;
 
-public interface CategoryService {
-    HttpEntity<?> getCategoryList();
+import java.util.List;
 
-    HttpEntity<?> getCategoryByProductId(Integer product_id);
+public interface CategoryService {
+    HttpEntity<List<Category>>  getCategoryList();
+
+    HttpEntity<Category> getCategoryByProductId(Integer product_id);
 
 }

@@ -1,5 +1,6 @@
 package bek.dev.appsalessystem.controller;
 
+import bek.dev.appsalessystem.entity.Invoice;
 import bek.dev.appsalessystem.service.CustomerService;
 import bek.dev.appsalessystem.service.InvoiceService;
 import bek.dev.appsalessystem.service.OrderService;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/dashboard")
@@ -25,7 +28,7 @@ public class DashboardController {
      * @return all attributes
      */
     @GetMapping("/expired_invoices")
-    public HttpEntity<?> getExpiredInvoices(){
+    public HttpEntity<List<Invoice>> getExpiredInvoices(){
         return invoiceService.getExpiredInvoices();
     }
 

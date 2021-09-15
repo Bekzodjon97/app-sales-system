@@ -1,11 +1,14 @@
 package bek.dev.appsalessystem.serviceImpl;
 
+import bek.dev.appsalessystem.entity.Invoice;
 import bek.dev.appsalessystem.repository.InvoiceRepository;
 import bek.dev.appsalessystem.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
@@ -14,7 +17,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     // GET INVOICES ISSUED AFTER THEIR DUE DATE
     @Override
-    public HttpEntity<?> getExpiredInvoices() {
+    public HttpEntity<List<Invoice>> getExpiredInvoices() {
         return ResponseEntity.ok(invoiceRepository.getExpiredInvoices());
     }
 

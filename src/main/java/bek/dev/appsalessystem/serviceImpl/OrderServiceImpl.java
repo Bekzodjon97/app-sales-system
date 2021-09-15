@@ -51,8 +51,9 @@ public class OrderServiceImpl implements OrderService {
 
     //GET ORDER DETAILS BY ID
     @Override
-    public HttpEntity<?> getOrderById(Integer order_id) {
-        return ResponseEntity.ok(orderRepository.findById(order_id));
+    public HttpEntity<Order> getOrderById(Integer order_id) {
+        Optional<Order> optionalOrder = orderRepository.findById(order_id);
+        return optionalOrder.<HttpEntity<Order>>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.ok(new Order()));
     }
 
 
@@ -67,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
             return new Result(Status.FAILED, 0);
         Order order=new Order();
         order.setCustomer(optionalCustomer.get());
+        order.setDate(new Date(System.currentTimeMillis()));
         Order savedOrder = orderRepository.save(order);
 
         Detail detail=new Detail();
@@ -78,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
         Invoice invoice=new Invoice();
         invoice.setOrder(savedOrder);
         invoice.setIssued(new Date());
-        invoice.setDue(new Date(System.currentTimeMillis()+100000));
+        invoice.setDue(new Date(System.currentTimeMillis()+60480000));
         invoice.setAmount(optionalProduct.get().getPrice()*orderDetailsDto.getQuantity());
         Invoice savedInvoice = invoiceRepository.save(invoice);
 
